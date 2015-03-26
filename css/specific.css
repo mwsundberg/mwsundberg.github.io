@@ -1,0 +1,5 @@
+/*--- Stuff with ids, and any exceptions to general.css ---*/
+
+#intro {
+  background-image: url("../images/intro.jpg");
+}
