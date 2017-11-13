@@ -29,7 +29,7 @@ Consisted of writing grant applications, running fundraisers, designing posters 
 Consisted of leading 40 team members through a six week season of building a robot from scratch including programming, fabrication, and electrical wiring. Continued through the month long competition season where the team competed at the District and Regional levels, then continued through to the World Championship.
 
 ### **Robotic Grasp Simulation Internship** (Summer 2016)
-Internship at Oregon State University (OSU) Robotics & Human Control Systems Lab with Dr. Cindy Grimm, 200+ hours. The internship consisted of self guided work developing a program in Matlab to effeciently model and fingerprint the ways that an object could slip out of a robotic grasp. Unfortunately [the project](https://github.com/OSUrobotics/transformationLimitsMetric) was unfinished by the start of the school year and the end of my internship.
+Internship at Oregon State University (OSU) Robotics & Human Control Systems Lab with Dr. Cindy Grimm, 200+ hours. The internship consisted of self guided work developing a program in Matlab to efficiently model and fingerprint the ways that an object could slip out of a robotic grasp. Unfortunately [the project](https://github.com/OSUrobotics/transformationLimitsMetric) was unfinished by the start of the school year and the end of my internship.
 
 ### **Eye Tracking Data Analysis Internship** (Summer 2015)
 Apprenticeships in Science and Engineering internship at OSU Robotics & Human Control Systems Lab with Dr. Ravi Balasubramanian.
@@ -41,12 +41,12 @@ Apprenticeships in Science and Engineering internship at OSU Robotics & Human Co
 ## Web Projects
 ### **Pipeline Testing:** [Link Shortener](https://l.mws.is/) (Summer 2017)
 [Gitlab page](https://gitlab.com/mws/L).
-A link shortener that makes redirect pages with custom or automatically assigned text from links stored in a JSON file. Built using Node.js. Visit the site for a more thourough description.
+A link shortener that makes redirect pages with custom or automatically assigned text from links stored in a JSON file. Built using Node.js. Visit the site for a more thorough description.
 
 ### **Team Website:** [CV Robotics Website](http://team955.org) (Fall 2015-Spring 2016)
 
 [Github page](https://github.com/FRC-Team-955/TeamWebsite).
-Please note that the site has been maintained by later students and as such content may be out of date or impropperly functioning. The design, main features, and structure remain of my work.
+Please note that the site has been maintained by later students and as such content may be out of date or improperly functioning. The design, main features, and structure remain of my work.
 
 ### **Class Project:** [Cold War Digital Museum Site](https://mws.is/e-waste) (Spring 2016)
 [Github page](https://github.com/matthberg/apushMuseum).
@@ -55,8 +55,3 @@ Page made with [Gulp](https://gulpjs.com/) pipelines, HTML preprocessor [Pug](ht
 ### **Class Project:** [E-Waste Awareness Site](https://mws.is/e-waste) (Spring 2015)
 [Github page](https://github.com/matthberg/e-waste/tree/gh-pages).
 An old website made using Bootstrap, one of my first (releasable) projects.
-
-
-
-
-
