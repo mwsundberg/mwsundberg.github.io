@@ -4,7 +4,7 @@
 |
 **Linkedin:** [mwsundberg](https://www.linkedin.com/in/mwsundberg/)
 |
-**Github:** [matthberg](http://github.com/matthberg/)
+**Github:** [mwsundberg](http://github.com/mwsundberg/)
 |
 **Gitlab:** [mws](https://gitlab.com/mws)
 
@@ -49,9 +49,9 @@ A link shortener that makes redirect pages with custom or automatically assigned
 Please note that the site has been maintained by later students and as such content may be out of date or improperly functioning. The design, main features, and structure remain of my work.
 
 ### **Class Project:** [Cold War Digital Museum Site](https://mws.is/e-waste) (Spring 2016)
-[Github page](https://github.com/matthberg/apushMuseum).
+[Github page](https://github.com/mwsundberg/apushMuseum).
 Page made with [Gulp](https://gulpjs.com/) pipelines, HTML preprocessor [Pug](https://pugjs.org/), and CSS preprocessor [Less](http://lesscss.org/).
 
 ### **Class Project:** [E-Waste Awareness Site](https://mws.is/e-waste) (Spring 2015)
-[Github page](https://github.com/matthberg/e-waste/tree/gh-pages).
+[Github page](https://github.com/mwsundberg/e-waste/tree/gh-pages).
 An old website made using Bootstrap, one of my first (releasable) projects.
