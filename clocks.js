@@ -31,7 +31,7 @@ function draw(){
       line(x, y, fromPolarXRTO(10, toPolarThetaO(mouseX, mouseY, x, y), x), fromPolarYRTO(10, toPolarThetaO(mouseX, mouseY, x, y), y));
       // Minute Hand
       strokeWeight(1.5);
-      line(x, y, fromPolarXRTO(20, 12.0*toPolarThetaO(mouseX, mouseY, x, y) - Math.PI, x), fromPolarYRTO(20, 12.0 * toPolarThetaO(mouseX, mouseY, x, y) - Math.PI, y));
+      line(x, y, fromPolarXRTO(20, 12.0*toPolarThetaO(mouseX, mouseY, x, y) - Math.PI/2, x), fromPolarYRTO(20, 12.0 * toPolarThetaO(mouseX, mouseY, x, y) - Math.PI/2, y));
     }
   }
 }
