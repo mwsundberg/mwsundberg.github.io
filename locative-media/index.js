@@ -27,8 +27,13 @@ function queryLocationAndPlayAudio(location){
 			    this.play();
 				}, false);
 			myAudio.play();
-
+			if(feature.properties.name == "wilder"){
+				document.getElementById("header").innerHTML = "April fools.";
+			}
 		} else {
+			if(feature.properties.name != "wilder"){
+				document.getElementById("header").innerHTML = "Wander around Jackson Court and the hill area to experience this piece."
+			}
 			myAudio.pause();
 
 			feature.properties.playing = false;
