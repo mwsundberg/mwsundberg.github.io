@@ -442,3 +442,17 @@ var geoJson = {
     }
   ]
 };
+
+for(let i = 0; i < geoJson.features.length; i++){
+  let feature = geoJson.features[i];
+  let myAudio = feature.properties.audio;
+
+  // https://stackoverflow.com/a/3273566
+  myAudio.addEventListener('ended', function() {
+      this.currentTime = 0;
+      this.play();
+    }, false);
+
+  feature.properties.audio = myAudio;
+  geoJson.features[i] = feature;
+}

@@ -17,23 +17,17 @@ function queryLocationAndPlayAudio(location){
 		let myAudio = feature.properties.audio;
 
 		// If currently in this feature
-		if(turf.booleanPointInPolygon(location, feature)){
+		if(turf.booleanPointInPolygon(location, feature) && !feature.properties.playing){
 			console.log('Detected audio zone ' + feature.properties.name + ".");
 			feature.properties.playing = true;
 
-			// https://stackoverflow.com/a/3273566
-			myAudio.addEventListener('ended', function() {
-			    this.currentTime = 0;
-			    this.play();
-				}, false);
 			myAudio.play();
+
 			if(feature.properties.name == "wilder"){
 				document.getElementById("header").innerHTML = "April fools.";
 			}
-		} else {
-			if(feature.properties.name != "wilder"){
-				document.getElementById("header").innerHTML = "Wander around Jackson Court and the hill area to experience this piece."
-			}
+		} else if(!turf.booleanPointInPolygon(location, feature) && feature.properties.playing){
+			document.getElementById("header").innerHTML = "Wander around Jackson Court and the hill area to experience this piece."
 			myAudio.pause();
 
 			feature.properties.playing = false;
