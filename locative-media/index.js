@@ -98,7 +98,7 @@ function locationFound(position) {
 	if(playing && turf.booleanPointInPolygon(myLocationTurf, feature)){
 			console.log('Detected audio zone ' + feature.properties.region + ": ");
 
-			if(night && audioOptions.night != "" && audioOptions.night != undefined){
+			if((night || nightOverride) && audioOptions.night != "" && audioOptions.night != undefined){
 				feature.properties.audio = new Audio(audioOptions.night);
 				feature.properties.audio.play();
 				playedSomething = true;
@@ -123,7 +123,7 @@ function locationFound(position) {
 	if(playing && !playedSomething && turf.booleanPointInPolygon(myLocationTurf, feature)){
 			console.log('Detected audio zone ' + feature.properties.region + ": ");
 
-			if(night && audioOptions.night != "" && audioOptions.night != undefined && !feature.properties.playing){
+			if((night || nightOverride) && audioOptions.night != "" && audioOptions.night != undefined && !feature.properties.playing){
 				feature.properties.audio = new Audio(audioOptions.night);
 				feature.properties.audio.play();
 				feature.properties.playing = true;
