@@ -1,7 +1,9 @@
 // Settings
 let playing = false;
 let playedSomething = false;
-let night;
+let date = new Date();
+let hour = date.getUTCHours() - date.getTimezoneOffset()/60;
+let night = hour < 7 || hour > 9;
 let nightOverride = (new URLSearchParams(window.location.search)).get('nightOverride');
 let locationAvailable = false;
 const locationSettings = {
@@ -9,6 +11,24 @@ const locationSettings = {
 	maximumAge        : 30000, 
 	timeout           : 27000
 };
+
+buildingRegions.features.forEach(function(feature, i, array){
+		let audioOptions = audioLocations[feature.properties.region];
+
+		if((night || nightOverride) && audioOptions.night != "" && audioOptions.night != undefined){
+			feature.properties.audio = new Audio(audioOptions.night);
+		} else if(audioOptions.day != "" && audioOptions.day != undefined){
+			feature.properties.audio = new Audio(audioOptions.day);
+		}
+		feature.properties.audio.addEventListener('ended', function() {
+	    this.currentTime = 0;
+	    this.play();
+		}, false);
+});
+generalRegions.features.forEach(function(feature, i, array){
+		feature.properties.audio.pause();
+		feature.properties.playing = false;
+});
 
 // Variable storing location so no stutter when starting again
 let lastLocation;
@@ -74,8 +94,8 @@ if ('geolocation' in navigator) {
 
 // Location found (main function)
 function locationFound(position) {
-	let date = new Date();
-	let hour = date.getUTCHours() - date.getTimezoneOffset()/60;
+	date = new Date();
+	hour = date.getUTCHours() - date.getTimezoneOffset()/60;
 	night = hour < 7 || hour > 9;
 
 	locationAvailable = true;
@@ -183,16 +203,12 @@ function togglePlayable(){
 
 			// Pause all audios
 			buildingRegions.features.forEach(function(feature, i, array){
-				if(feature.properties.audio != undefined){
 					feature.properties.audio.pause();
 					feature.properties.playing = false;
-				}
 			});
 			generalRegions.features.forEach(function(feature, i, array){
-				if(feature.properties.audio != undefined){
 					feature.properties.audio.pause();
 					feature.properties.playing = false;
-				}
 			});
 		}
 	} else { // Location not available
