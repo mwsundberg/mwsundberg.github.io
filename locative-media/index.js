@@ -20,14 +20,27 @@ buildingRegions.features.forEach(function(feature, i, array){
 		} else if(audioOptions.day != "" && audioOptions.day != undefined){
 			feature.properties.audio = new Audio(audioOptions.day);
 		}
-		feature.properties.audio.addEventListener('ended', function() {
-	    this.currentTime = 0;
-	    this.play();
-		}, false);
+		if(feature.properties.audio != undefined){
+			feature.properties.audio.addEventListener('ended', function() {
+		    this.currentTime = 0;
+		    this.play();
+			}, false);
+		}
 });
 generalRegions.features.forEach(function(feature, i, array){
-		feature.properties.audio.pause();
-		feature.properties.playing = false;
+		let audioOptions = audioLocations[feature.properties.region];
+
+		if((night || nightOverride) && audioOptions.night != "" && audioOptions.night != undefined){
+			feature.properties.audio = new Audio(audioOptions.night);
+		} else if(audioOptions.day != "" && audioOptions.day != undefined){
+			feature.properties.audio = new Audio(audioOptions.day);
+		}
+		if(feature.properties.audio != undefined){
+			feature.properties.audio.addEventListener('ended', function() {
+		    this.currentTime = 0;
+		    this.play();
+			}, false);
+		}
 });
 
 // Variable storing location so no stutter when starting again
