@@ -36,6 +36,7 @@ generalRegions.features.forEach(function(feature, i, array){
 			feature.properties.audio = new Audio(audioOptions.day);
 		}
 		if(feature.properties.audio != undefined){
+			console.log("adding loop")
 			feature.properties.audio.addEventListener('ended', function() {
 		    this.currentTime = 0;
 		    this.play();

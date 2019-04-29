@@ -41,6 +41,6 @@ const audioLocations = {
 		"day":""
 	},
 	"sports": {
-		"night":"resources/Sports Night.wav"
+		"night":"resources/SportsNight.wav"
 	},
 }
