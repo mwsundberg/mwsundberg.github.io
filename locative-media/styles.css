@@ -1,11 +1,12 @@
 html, body{
-	font-family: Helvetica;
+	font-family: Helvetica, sans-serif;
 	background-color: #eee;
 	color: #111;
 	margin: 0;
 	padding: 0;
 	height: 100%;
 }
+
 #mapid {
 	width: 100%;
 	height: 100%;
@@ -17,9 +18,35 @@ html, body{
 	z-index: 1;
 	width: 100%;
 	height: 100%;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+#overlay.off {
+	text-align: center;
+	background-color: rgba(255,255,255,0.5);
+}
+
+#overlay.on {
 	pointer-events: none;
+}
+
+#overlay.on #header {
+	display: none;
 }
 
 #toggle {
 	pointer-events: auto;
+	font-size: 30px;
+	cursor: pointer;
+}
+
+#overlay.on #toggle {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+}
+
+#overlay.on #description {
+	display: none;
 }

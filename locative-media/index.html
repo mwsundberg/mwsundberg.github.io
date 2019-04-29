@@ -3,19 +3,15 @@
 	<head>
 		<meta charset="UTF-8"> 
 		<title>Locative Media 0.0.2</title>
-		<link rel="stylesheet" href="./styles.css">
+		<link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
 	</head>
 	<body>
 		<!--Displayed-->
-		<div id="overlay">
+		<div id="overlay" class="off">
 			<h1 id="header">Explore River Campus during the day and night to experience this piece.</h1>
-			<div id="errorBox">
-				<div id="apiNotSupported"></div>
-				<div id="permissionDenied"></div>
-				<div id="audioZone"></div>
-			</div>
-			<a id="toggle" onclick="togglePlayable()">Start</a>
+			<p id="description">Location permissions are required to use this site. Hitting play will only work after permission has been granted and location has been found.</p>
+			<a id="toggle" onclick="togglePlayable()">▶</a>
 		</div>
 		<div id="mapid"></div>
 

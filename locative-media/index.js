@@ -1,10 +1,14 @@
 // Settings
-let playable = false;
+let playing = false;
+let locationAvailable = false;
 const locationSettings = {
 	enableHighAccuracy: true, 
 	maximumAge        : 30000, 
 	timeout           : 27000
 };
+
+// Variable storing location so no stutter when starting again
+let lastLocation;
 
 // Map Settings
 const center = [43.12861, -77.630081];
@@ -60,11 +64,14 @@ L.geoJson(geoJson).addTo(mymap);
 if ('geolocation' in navigator) {
 	let watchID = navigator.geolocation.watchPosition(locationFound, locationUnavailable, locationSettings);
 } else {
-	alert('API not supported, sorry.');
+	locationAvailable = false;
+	console.log('API not supported, sorry.');
 }
 
 // Location found (main function)
 function locationFound(position) {
+	locationAvailable = true;
+	lastLocation = position;
 	const latitude  = position.coords.latitude;
 	const longitude = position.coords.longitude;
 	const myLocationTurf = turf.point([longitude, latitude]);
@@ -81,13 +88,13 @@ function locationFound(position) {
 		if(turf.booleanPointInPolygon(myLocationTurf, feature) && !feature.properties.playing){
 			console.log('Detected audio zone ' + feature.properties.name + ".");
 
-			if(playable){
+			if(playing){
 				feature.properties.playing = true;
 				myAudio.play();
 			}
 
 		} else if(!turf.booleanPointInPolygon(myLocationTurf, feature) && feature.properties.playing){
-			if(playable){
+			if(playing){
 				feature.properties.playing = false;
 				myAudio.pause();
 			}
@@ -97,19 +104,48 @@ function locationFound(position) {
 
 // Location query failure
 function locationUnavailable() {
-	alert('Sorry, no position available.');
+	if(lastLocation == null){
+		locationAvailable = false;
+		console.log('Sorry, no position available.');
+	} else {
+		console.log('Failed to get new location, reusing old.');
+	}
 }
 
 // Toggle Playable helper
 function togglePlayable(){
-	playable = !playable;
-	console.log('Toggled Playable.');
+	// Only do something if can
+	if(locationAvailable) {
+		playing = !playing;
+		console.log('Toggled Playable.');
+		let overlayClasses = document.getElementById('overlay').classList;
 
-	// Pausing
-	if(!playable){
-		geoJson.features.forEach(function(feature, i, array){
-			feature.properties.playing = false;
-			feature.properties.audio.pause();
-		});
+		// Playing
+		if(playing){
+			overlayClasses.remove("off");
+			overlayClasses.add("on");
+
+			// Update toggle text
+			document.getElementById('toggle').innerHTML = '⏸';
+
+			// Start audio
+			if(location != null){
+				locationFound(lastLocation);
+			}
+		} else { // Pausing
+			overlayClasses.remove("on");
+			overlayClasses.add("off");
+
+			// Update toggle text
+			document.getElementById('toggle').innerHTML = '▶';
+
+			// Pause all audios
+			geoJson.features.forEach(function(feature, i, array){
+				feature.properties.playing = false;
+				feature.properties.audio.pause();
+			});
+		}
+	} else { // Location not available
+		console.log("location unavailable.");
 	}
 }
