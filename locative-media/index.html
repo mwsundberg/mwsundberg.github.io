@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		 <meta charset="UTF-8"> 
-		<title>Locative Media 0.0.1</title>
-		<link rel="stylesheet" href="styles.css">
+		<meta charset="UTF-8"> 
+		<title>Locative Media 0.0.2</title>
+		<link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
 	</head>
 	<body>
-		<h1 id="header">Wander around Jackson Court and the hill area to experience this piece.</h1>
-		<a href="" id="mapLink"></a>
+		<!--Displayed-->
+		<div id="overlay">
+			<h1 id="header">Explore River Campus during the day and night to experience this piece.</h1>
+			<div id="errorBox">
+				<div id="apiNotSupported"></div>
+				<div id="permissionDenied"></div>
+				<div id="audioZone"></div>
+			</div>
+			<a id="toggle" onclick="togglePlayable()">Start</a>
+		</div>
+		<div id="mapid"></div>
+
+		<!--Scripts-->
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
 		<script type="text/javascript" src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
 		<script type="text/javascript" src="geoJson.js"></script>
 		<script type="text/javascript" src="index.js"></script>

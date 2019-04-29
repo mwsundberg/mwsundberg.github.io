@@ -1,52 +1,115 @@
-function cantGetCoordinates() {
-  alert("Sorry, no position available.");
-}
-
-var locationSettings = {
-  enableHighAccuracy: true, 
-  maximumAge        : 30000, 
-  timeout           : 27000
+// Settings
+let playable = false;
+const locationSettings = {
+	enableHighAccuracy: true, 
+	maximumAge        : 30000, 
+	timeout           : 27000
 };
 
-let mapLink = document.getElementById('mapLink')
+// Map Settings
+const center = [43.12861, -77.630081];
+const myLocationMarkerOptions = {
+	weight: 3,
+	color: '#fff',
+	radius: 5,
+	fillColor: '#009dff',
+	fillOpacity: 1.0
+};
 
-function queryLocationAndPlayAudio(location){
-	// Check each region
-	for(let i = 0; i < geoJson.features.length; i++){
-		let feature = geoJson.features[i];
+// Map stuff
+let mymap = L.map('mapid').setView(center, 16);
+let myLocationMarker = L.circleMarker(L.latLng(center), myLocationMarkerOptions);
+
+// Mapbox Light layer
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+	maxZoom: 18,
+	minZoom: 14,
+	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+		'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+		'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+	id: 'mapbox.light'
+}).addTo(mymap);
+
+// // Stamen Toner layer
+// L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
+// 	maxZoom: 18,
+// 	minZoom: 14,
+// 	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+// 		'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+// 		'Imagery © <a href="https://stamen.com">Stamen Design</a>'
+// }).addTo(mymap);
+
+
+myLocationMarker.addTo(mymap);
+
+// // Onclick show lat/long
+// let popup = L.popup();
+// function onMapClick(e) {
+// 	popup
+// 		.setLatLng(e.latlng)
+// 		.setContent('You clicked the map at ' + e.latlng.toString())
+// 		.openOn(mymap);
+// }
+// mymap.on('click', onMapClick);
+
+L.geoJson(geoJson).addTo(mymap);
+
+
+
+// Geolocation API dealings
+if ('geolocation' in navigator) {
+	let watchID = navigator.geolocation.watchPosition(locationFound, locationUnavailable, locationSettings);
+} else {
+	alert('API not supported, sorry.');
+}
+
+// Location found (main function)
+function locationFound(position) {
+	const latitude  = position.coords.latitude;
+	const longitude = position.coords.longitude;
+	const myLocationTurf = turf.point([longitude, latitude]);
+	console.log('Got location: ' + latitude + ', ' + longitude);
+
+	// Update map markers
+	myLocationMarker.setLatLng(L.latLng(latitude, longitude));
+
+	// Check each region and play audio
+	geoJson.features.forEach(function(feature, i, array){
 		let myAudio = feature.properties.audio;
 
 		// If currently in this feature
-		if(turf.booleanPointInPolygon(location, feature) && !feature.properties.playing){
+		if(turf.booleanPointInPolygon(myLocationTurf, feature) && !feature.properties.playing){
 			console.log('Detected audio zone ' + feature.properties.name + ".");
-			feature.properties.playing = true;
 
-			myAudio.play();
-
-			if(feature.properties.name == "wilder"){
-				document.getElementById("header").innerHTML = "April fools.";
+			if(playable){
+				feature.properties.playing = true;
+				myAudio.play();
 			}
-		} else if(!turf.booleanPointInPolygon(location, feature) && feature.properties.playing){
-			document.getElementById("header").innerHTML = "Wander around Jackson Court and the hill area to experience this piece."
-			myAudio.pause();
 
-			feature.properties.playing = false;
+		} else if(!turf.booleanPointInPolygon(myLocationTurf, feature) && feature.properties.playing){
+			if(playable){
+				feature.properties.playing = false;
+				myAudio.pause();
+			}
 		}
-
-		geoJson.features[i] = feature;
-	}
+	});
 }
 
-if ("geolocation" in navigator) {
-  let watchID = navigator.geolocation.watchPosition(function(position) {
-  	const latitude  = position.coords.latitude;
-    const longitude = position.coords.longitude;
+// Location query failure
+function locationUnavailable() {
+	alert('Sorry, no position available.');
+}
 
-	  queryLocationAndPlayAudio(turf.point([longitude, latitude]));
-	  console.log('updated location: ' + latitude + ', ' + longitude);
-	  mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
+// Toggle Playable helper
+function togglePlayable(){
+	playable = !playable;
+	console.log('Toggled Playable.');
 
-	}, cantGetCoordinates, locationSettings);
-} else {
-  alert("API not supported, sorry.");
+	// Pausing
+	if(!playable){
+		geoJson.features.forEach(function(feature, i, array){
+			feature.properties.playing = false;
+			feature.properties.audio.pause();
+		});
+	}
 }
