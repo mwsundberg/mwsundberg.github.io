@@ -24,6 +24,7 @@ buildingRegions.features.forEach(function(feature, i, array){
 			feature.properties.audio.addEventListener('ended', function() {
 		    this.currentTime = 0;
 		    this.play();
+		    console.log('looping');
 			}, false);
 		}
 });
@@ -31,15 +32,17 @@ generalRegions.features.forEach(function(feature, i, array){
 		let audioOptions = audioLocations[feature.properties.region];
 
 		if((night || nightOverride) && audioOptions.night != "" && audioOptions.night != undefined){
+			console.log("SDLKJFsldfsdjfdsfs")
 			feature.properties.audio = new Audio(audioOptions.night);
 		} else if(audioOptions.day != "" && audioOptions.day != undefined){
+			console.log("SDLKJFsldfsdjfdsfsdsfdsafsdfs")
 			feature.properties.audio = new Audio(audioOptions.day);
 		}
 		if(feature.properties.audio != undefined){
-			console.log("adding loop")
 			feature.properties.audio.addEventListener('ended', function() {
 		    this.currentTime = 0;
 		    this.play();
+		    console.log('looping');
 			}, false);
 		}
 });
@@ -133,11 +136,9 @@ function locationFound(position) {
 			console.log('Detected audio zone ' + feature.properties.region + ": ");
 
 			if((night || nightOverride) && audioOptions.night != "" && audioOptions.night != undefined){
-				feature.properties.audio = new Audio(audioOptions.night);
 				feature.properties.audio.play();
 				playedSomething = true;
 			} else if(audioOptions.day != "" && audioOptions.day != undefined){
-				feature.properties.audio = new Audio(audioOptions.day);
 				feature.properties.audio.play();
 				playedSomething = true;
 			}
