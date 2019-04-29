@@ -1,5 +1,8 @@
 // Settings
 let playing = false;
+let playedSomething = false;
+let night;
+let nightOverride = (new URLSearchParams(window.location.search)).get('nightOverride');
 let locationAvailable = false;
 const locationSettings = {
 	enableHighAccuracy: true, 
@@ -44,7 +47,6 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 // }).addTo(mymap);
 
 
-myLocationMarker.addTo(mymap);
 
 // // Onclick show lat/long
 // let popup = L.popup();
@@ -56,8 +58,10 @@ myLocationMarker.addTo(mymap);
 // }
 // mymap.on('click', onMapClick);
 
-L.geoJson(geoJson).addTo(mymap);
+L.geoJson(generalRegions).addTo(mymap);
+L.geoJson(buildingRegions).addTo(mymap);
 
+myLocationMarker.addTo(mymap);
 
 
 // Geolocation API dealings
@@ -70,8 +74,13 @@ if ('geolocation' in navigator) {
 
 // Location found (main function)
 function locationFound(position) {
+	let date = new Date();
+	let hour = date.getUTCHours() - date.getTimezoneOffset()/60;
+	night = hour < 7 || hour > 9;
+
 	locationAvailable = true;
 	lastLocation = position;
+
 	const latitude  = position.coords.latitude;
 	const longitude = position.coords.longitude;
 	const myLocationTurf = turf.point([longitude, latitude]);
@@ -81,22 +90,55 @@ function locationFound(position) {
 	myLocationMarker.setLatLng(L.latLng(latitude, longitude));
 
 	// Check each region and play audio
-	geoJson.features.forEach(function(feature, i, array){
-		let myAudio = feature.properties.audio;
+	playedSomething = false;
+	buildingRegions.features.forEach(function(feature, i, array){
+	let audioOptions = audioLocations[feature.properties.region];
 
-		// If currently in this feature
-		if(turf.booleanPointInPolygon(myLocationTurf, feature) && !feature.properties.playing){
-			console.log('Detected audio zone ' + feature.properties.name + ".");
+	// If currently in this feature
+	if(playing && turf.booleanPointInPolygon(myLocationTurf, feature)){
+			console.log('Detected audio zone ' + feature.properties.region + ": ");
 
-			if(playing){
-				feature.properties.playing = true;
-				myAudio.play();
+			if(night && audioOptions.night != "" && audioOptions.night != undefined){
+				feature.properties.audio = new Audio(audioOptions.night);
+				feature.properties.audio.play();
+				playedSomething = true;
+			} else if(audioOptions.day != "" && audioOptions.day != undefined){
+				feature.properties.audio = new Audio(audioOptions.day);
+				feature.properties.audio.play();
+				playedSomething = true;
 			}
 
-		} else if(!turf.booleanPointInPolygon(myLocationTurf, feature) && feature.properties.playing){
-			if(playing){
+		} else {
+			if(feature.properties.audio != undefined){
+				feature.properties.audio.pause();
+			}
+		}
+	});
+
+	// Catchall case 
+	generalRegions.features.forEach(function(feature, i, array){
+	let audioOptions = audioLocations[feature.properties.region];
+
+	// If currently in this feature
+	if(playing && !playedSomething && turf.booleanPointInPolygon(myLocationTurf, feature)){
+			console.log('Detected audio zone ' + feature.properties.region + ": ");
+
+			if(night && audioOptions.night != "" && audioOptions.night != undefined && !feature.properties.playing){
+				feature.properties.audio = new Audio(audioOptions.night);
+				feature.properties.audio.play();
+				feature.properties.playing = true;
+				playedSomething = true;
+			} else if(audioOptions.day != "" && audioOptions.day != undefined && !feature.properties.playing){
+				feature.properties.audio = new Audio(audioOptions.day);
+				feature.properties.audio.play();
+				feature.properties.playing = true;
+				playedSomething = true;
+			}
+
+		} else {
+			if(feature.properties.audio != undefined){
+				feature.properties.audio.pause();
 				feature.properties.playing = false;
-				myAudio.pause();
 			}
 		}
 	});
@@ -104,7 +146,7 @@ function locationFound(position) {
 
 // Location query failure
 function locationUnavailable() {
-	if(lastLocation == null){
+	if(lastLocation == undefined){
 		locationAvailable = false;
 		console.log('Sorry, no position available.');
 	} else {
@@ -140,9 +182,17 @@ function togglePlayable(){
 			document.getElementById('toggle').innerHTML = '▶';
 
 			// Pause all audios
-			geoJson.features.forEach(function(feature, i, array){
-				feature.properties.playing = false;
-				feature.properties.audio.pause();
+			buildingRegions.features.forEach(function(feature, i, array){
+				if(feature.properties.audio != undefined){
+					feature.properties.audio.pause();
+					feature.properties.playing = false;
+				}
+			});
+			generalRegions.features.forEach(function(feature, i, array){
+				if(feature.properties.audio != undefined){
+					feature.properties.audio.pause();
+					feature.properties.playing = false;
+				}
 			});
 		}
 	} else { // Location not available
