@@ -39,6 +39,8 @@ html, body{
 	pointer-events: auto;
 	font-size: 30px;
 	cursor: pointer;
+	text-decoration: none;
+	color: blue;
 }
 
 #overlay.on #toggle {
