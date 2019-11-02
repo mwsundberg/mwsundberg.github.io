@@ -2,24 +2,23 @@
 <html>
 	<head>
 		<meta charset="UTF-8"> 
-		<title>Locative Media 0.0.2</title>
+		<title>Locative Media 1.0.0</title>
+    	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
 		<link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
 	</head>
 	<body>
 		<!--Displayed-->
-		<div id="overlay" class="off">
+		<div id="overlay">
 			<h1 id="header">Explore River Campus during the day and night to experience this piece.</h1>
 			<p id="description">Location permissions are required to use this site. Hitting play will only work after permission has been granted and location has been found.</p>
-			<a id="toggle" onclick="togglePlayable()" href="#">▶</a>
+			<a id="toggle" href="#">▶</a>
 		</div>
 		<div id="mapid"></div>
 
 		<!--Scripts-->
-    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
-		<script type="text/javascript" src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
-		<script type="text/javascript" src="geoJson.js"></script>
-		<script type="text/javascript" src="locationAudioMaps.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+		<script type="text/javascript" src="https://unpkg.com/@turf/turf@5.1.6/turf.min.js" crossorigin=""></script>
+		<script type="text/javascript" src="regionData.js"></script>
 		<script type="text/javascript" src="index.js"></script>
 	</body>
 </html>

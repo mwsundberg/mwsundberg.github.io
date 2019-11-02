@@ -1,10 +1,9 @@
-// Buildings
-let buildingRegions = {
+const buildingRegions = {
   "type": "FeatureCollection",
   "features": [
     {
       "type": "Feature",
-      "properties": {"region":"freshmenhousing"},
+      "properties": {"masked":false, "region":"freshmenhousing"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -83,7 +82,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"freshmenhousing"},
+      "properties": {"masked":false, "region":"freshmenhousing"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -130,7 +129,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"freshmenhousing"},
+      "properties": {"masked":false, "region":"freshmenhousing"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -177,7 +176,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"freshmenhousing"},
+      "properties": {"masked":false, "region":"freshmenhousing"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -276,7 +275,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"freshmenhousing"},
+      "properties": {"masked":false, "region":"freshmenhousing"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -307,7 +306,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"upperclassmenhousing"},
+      "properties": {"masked":false, "region":"upperclassmenhousing"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -338,7 +337,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"upperclassmenhousing"},
+      "properties": {"masked":false, "region":"upperclassmenhousing"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -369,7 +368,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"upperclassmenhousing"},
+      "properties": {"masked":false, "region":"upperclassmenhousing"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -400,7 +399,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"upperclassmenhousing"},
+      "properties": {"masked":false, "region":"upperclassmenhousing"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -511,7 +510,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"upperclassmenhousing"},
+      "properties": {"masked":false, "region":"upperclassmenhousing"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -574,7 +573,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"upperclassmenhousing"},
+      "properties": {"masked":false, "region":"upperclassmenhousing"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -685,7 +684,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"upperclassmenhousing"},
+      "properties": {"masked":false, "region":"upperclassmenhousing"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -748,7 +747,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"upperclassmenhousing"},
+      "properties": {"masked":false, "region":"upperclassmenhousing"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -795,7 +794,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"upperclassmenhousing"},
+      "properties": {"masked":false, "region":"upperclassmenhousing"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -842,7 +841,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"frathouses"},
+      "properties": {"masked":false, "region":"frathouses"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -881,7 +880,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"frathouses"},
+      "properties": {"masked":false, "region":"frathouses"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -920,7 +919,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"frathouses"},
+      "properties": {"masked":false, "region":"frathouses"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -959,7 +958,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"frathouses"},
+      "properties": {"masked":false, "region":"frathouses"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -998,7 +997,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"frathouses"},
+      "properties": {"masked":false, "region":"frathouses"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1029,7 +1028,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"frathouses"},
+      "properties": {"masked":false, "region":"frathouses"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1068,7 +1067,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"frathouses"},
+      "properties": {"masked":false, "region":"frathouses"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1099,7 +1098,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"frathouses"},
+      "properties": {"masked":false, "region":"frathouses"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1130,7 +1129,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"frathouses"},
+      "properties": {"masked":false, "region":"frathouses"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1169,7 +1168,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"sports"},
+      "properties": {"masked":false, "region":"sports"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1248,7 +1247,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"sports"},
+      "properties": {"masked":false, "region":"sports"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1327,7 +1326,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"sports"},
+      "properties": {"masked":false, "region":"sports"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1358,7 +1357,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"library"},
+      "properties": {"masked":false, "region":"library"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1389,7 +1388,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"library"},
+      "properties": {"masked":false, "region":"library"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1436,7 +1435,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1515,7 +1514,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1582,7 +1581,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1661,7 +1660,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1728,7 +1727,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1891,7 +1890,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1962,7 +1961,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -1997,7 +1996,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2064,7 +2063,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2119,7 +2118,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2150,7 +2149,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2245,7 +2244,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2280,7 +2279,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2339,7 +2338,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2390,7 +2389,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2429,7 +2428,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2460,7 +2459,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2623,7 +2622,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2678,7 +2677,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2741,7 +2740,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2784,7 +2783,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"road"},
+      "properties": {"masked":false, "region":"road"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2815,7 +2814,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"dining"},
+      "properties": {"masked":false, "region":"dining"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2854,7 +2853,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"dining"},
+      "properties": {"masked":false, "region":"dining"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2901,7 +2900,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"dining"},
+      "properties": {"masked":false, "region":"dining"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2932,7 +2931,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -2975,7 +2974,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3022,7 +3021,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3053,7 +3052,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3104,7 +3103,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3143,7 +3142,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3190,7 +3189,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3221,7 +3220,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3252,7 +3251,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3315,7 +3314,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3354,7 +3353,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3433,7 +3432,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3464,7 +3463,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3495,7 +3494,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3534,7 +3533,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3621,7 +3620,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3656,7 +3655,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3687,7 +3686,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3770,7 +3769,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"academicbuilding"},
+      "properties": {"masked":false, "region":"academicbuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3813,7 +3812,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"performancebuilding"},
+      "properties": {"masked":false, "region":"performancebuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3844,7 +3843,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"performancebuilding"},
+      "properties": {"masked":false, "region":"performancebuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3883,7 +3882,7 @@ let buildingRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"performancebuilding"},
+      "properties": {"masked":false, "region":"performancebuilding"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3921,16 +3920,14 @@ let buildingRegions = {
       }
     }
   ]
-}
+};
 
-
-// REGIONS
-let generalRegions = {
+const generalRegions = {
   "type": "FeatureCollection",
   "features": [
     {
       "type": "Feature",
-      "properties": {"region":"fratarea"},
+      "properties": {"masked":true, "region":"fratarea"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3969,7 +3966,7 @@ let generalRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"housingarea"},
+      "properties": {"masked":true, "region":"housingarea"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -4016,7 +4013,7 @@ let generalRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"housingarea"},
+      "properties": {"masked":true, "region":"housingarea"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -4059,7 +4056,7 @@ let generalRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"housingarea"},
+      "properties": {"masked":true, "region":"housingarea"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -4106,7 +4103,7 @@ let generalRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"housingarea"},
+      "properties": {"masked":true, "region":"housingarea"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -4153,7 +4150,7 @@ let generalRegions = {
     },
     {
       "type": "Feature",
-      "properties": {"region":"generalarea"},
+      "properties": {"masked":true, "region":"generalarea"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -4235,4 +4232,39 @@ let generalRegions = {
       }
     }
   ]
-}
+};
+
+let audioObjects = {
+	"housingarea": {
+	},
+	"fratarea": {
+	},
+	"generalarea": {
+		"day": new Audio("resources/GeneralDay.wav"),
+		"night": new Audio("resources/AmbientFlagpolesNight.wav")
+	},
+	"performancebuilding": {
+		"night": new Audio("resources/PerformanceNight.wav")
+	},
+	"academicbuilding": {
+	},
+	"dining": {
+		"night": new Audio("resources/DiningNight.wav")
+	},
+	"road": {
+		"night": new Audio("resources/RoadsNight.wav")
+	},
+	"library": {
+		"day": new Audio("resources/StudyingQuietDay.wav"),
+		"night": new Audio("resources/StudyingLoudNight.wav")
+	},
+	"freshmenhousing": {
+	},
+	"upperclassmenhousing": {
+	},
+	"frathouses": {
+	},
+	"sports": {
+		"night": new Audio("resources/SportsNight.wav")
+	}
+};

@@ -1,56 +1,21 @@
 // Settings
-let playing = false;
-let playedSomething = false;
-let date = new Date();
-let hour = date.getUTCHours() - date.getTimezoneOffset()/60;
-let night = hour < 7 || hour > 9;
-let nightOverride = (new URLSearchParams(window.location.search)).get('nightOverride');
-let locationAvailable = false;
-const locationSettings = {
+let paused = true;
+const urlArgs = new URLSearchParams(window.location.search);
+const nightOverride = urlArgs.get('nightOverride');
+const mouseLocationOverride = urlArgs.get('mouseLocationOverride');
+let isNight = nightOverride || nightPredicate(new Date());
+
+// HTML5 location api settings
+const locationApiSettings = {
 	enableHighAccuracy: true, 
 	maximumAge        : 30000, 
 	timeout           : 27000
 };
 
-buildingRegions.features.forEach(function(feature, i, array){
-		let audioOptions = audioLocations[feature.properties.region];
-
-		if((night || nightOverride) && audioOptions.night != "" && audioOptions.night != undefined){
-			feature.properties.audio = new Audio(audioOptions.night);
-		} else if(audioOptions.day != "" && audioOptions.day != undefined){
-			feature.properties.audio = new Audio(audioOptions.day);
-		}
-		if(feature.properties.audio != undefined){
-			feature.properties.audio.addEventListener('ended', function() {
-		    this.currentTime = 0;
-		    this.play();
-		    console.log('looping');
-			}, false);
-		}
-});
-generalRegions.features.forEach(function(feature, i, array){
-		let audioOptions = audioLocations[feature.properties.region];
-
-		if((night || nightOverride) && audioOptions.night != "" && audioOptions.night != undefined){
-			console.log("SDLKJFsldfsdjfdsfs")
-			feature.properties.audio = new Audio(audioOptions.night);
-		} else if(audioOptions.day != "" && audioOptions.day != undefined){
-			console.log("SDLKJFsldfsdjfdsfsdsfdsafsdfs")
-			feature.properties.audio = new Audio(audioOptions.day);
-		}
-		if(feature.properties.audio != undefined){
-			feature.properties.audio.addEventListener('ended', function() {
-		    this.currentTime = 0;
-		    this.play();
-		    console.log('looping');
-			}, false);
-		}
-});
-
-// Variable storing location so no stutter when starting again
-let lastLocation;
-
 // Map Settings
+function mapUrl(isNight){
+	return 'https://api.tiles.mapbox.com/v4/' + (isNight? 'mapbox.dark':'mapbox.light') + '/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+}
 const center = [43.12861, -77.630081];
 const myLocationMarkerOptions = {
 	weight: 3,
@@ -60,173 +25,248 @@ const myLocationMarkerOptions = {
 	fillOpacity: 1.0
 };
 
-// Map stuff
+// Cache location for loss of access
+let lastLocation = null;
+
+// Map initialization
 let mymap = L.map('mapid').setView(center, 16);
 let myLocationMarker = L.circleMarker(L.latLng(center), myLocationMarkerOptions);
 
-// Mapbox Light layer
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+// Mapbox map layer layer
+let mapLayer = L.tileLayer(mapUrl(isNight), {
 	maxZoom: 18,
 	minZoom: 14,
 	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
 		'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-		'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-	id: 'mapbox.light'
-}).addTo(mymap);
+		'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'
+});
+mapLayer.addTo(mymap);
 
-// // Stamen Toner layer
-// L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
-// 	maxZoom: 18,
-// 	minZoom: 14,
-// 	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-// 		'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-// 		'Imagery © <a href="https://stamen.com">Stamen Design</a>'
-// }).addTo(mymap);
-
-
-
-// // Onclick show lat/long
-// let popup = L.popup();
-// function onMapClick(e) {
-// 	popup
-// 		.setLatLng(e.latlng)
-// 		.setContent('You clicked the map at ' + e.latlng.toString())
-// 		.openOn(mymap);
-// }
-// mymap.on('click', onMapClick);
-
-L.geoJson(generalRegions).addTo(mymap);
-L.geoJson(buildingRegions).addTo(mymap);
+// Add regions to map, making them non-clickable
+let testing = L.geoJson(buildingRegions);
+testing.addTo(mymap);
+testing.setStyle({style:{interactive:false}});
+L.geoJson(generalRegions, {style:{interactive:false}}).addTo(mymap);
 
 myLocationMarker.addTo(mymap);
 
 
-// Geolocation API dealings
-if ('geolocation' in navigator) {
-	let watchID = navigator.geolocation.watchPosition(locationFound, locationUnavailable, locationSettings);
+// If using mouse clicks to set location
+if(mouseLocationOverride){
+	console.log("Mouse location override handling");
+	// Preset the last location as a js Coordinates version of the start location (used by the loop)
+	lastLocation = {coords: {
+		latitude: center[0],
+		longitude: center[1]
+	}};
+
+	// Set up an onclick listener for triggering a location update
+	mymap.addEventListener("click", function(mouseEvent) {
+		console.log("Mouse override setting location to: " + mouseEvent.latlng.lat + ", " + mouseEvent.latlng.lng);
+		// Convert the Leaflet coordinates to a js Coordinates object
+		lastLocation = {coords: {
+			latitude: mouseEvent.latlng.lat,
+			longitude: mouseEvent.latlng.lng
+		}};
+
+		// Call the normal location found code
+		locationFound(lastLocation);
+	});
+
+	// Set up a regular looper every 2 seconds that adds a bit of wobble to the location
+	window.setInterval(function(){
+		console.log("Updating location with random offset.");
+		// Add in a random offset
+		lastLocation.coords.latitude  += 0.001 * (Math.random() - 0.5);
+		lastLocation.coords.longitude += 0.001 * (Math.random() - 0.5);
+		
+		// Recall the locations function
+		locationFound(lastLocation);
+	}, 2000);
 } else {
-	locationAvailable = false;
-	console.log('API not supported, sorry.');
+	// If not using mouse click location override
+	if ('geolocation' in navigator) {
+		// Geolocation API dealings
+		navigator.geolocation.watchPosition(locationFound, locationUnavailable, locationApiSettings);
+	} else {
+		console.log('API not supported, sorry.');
+	}
 }
 
 // Location found (main function)
 function locationFound(position) {
-	date = new Date();
-	hour = date.getUTCHours() - date.getTimezoneOffset()/60;
-	night = hour < 7 || hour > 9;
-
-	locationAvailable = true;
+	// Location variable updates
 	lastLocation = position;
-
 	const latitude  = position.coords.latitude;
 	const longitude = position.coords.longitude;
 	const myLocationTurf = turf.point([longitude, latitude]);
-	console.log('Got location: ' + latitude + ', ' + longitude);
 
-	// Update map markers
+	// Update map marker
 	myLocationMarker.setLatLng(L.latLng(latitude, longitude));
 
-	// Check each region and play audio
-	playedSomething = false;
-	buildingRegions.features.forEach(function(feature, i, array){
-	let audioOptions = audioLocations[feature.properties.region];
-
-	// If currently in this feature
-	if(playing && turf.booleanPointInPolygon(myLocationTurf, feature)){
-			console.log('Detected audio zone ' + feature.properties.region + ": ");
-
-			if((night || nightOverride) && audioOptions.night != "" && audioOptions.night != undefined){
-				feature.properties.audio.play();
-				playedSomething = true;
-			} else if(audioOptions.day != "" && audioOptions.day != undefined){
-				feature.properties.audio.play();
-				playedSomething = true;
+	// Only do audio if enabled to do so
+	if(paused){
+		return;
+	} else {
+		// Check each region for location intersection
+		let playedSomething = false;
+		buildingRegions.features.forEach(function(feature){
+			// If currently in this feature set the flag and dispatch the handler
+			if(turf.booleanPointInPolygon(myLocationTurf, feature)){
+				console.log('Detected building audio zone ' + feature.properties.region + ".");
+				playedSomething = startPlaying(feature.properties.region) || playedSomething;
+			} else {
+				stopPlaying(feature.properties.region);
 			}
+		});
 
-		} else {
-			if(feature.properties.audio != undefined){
-				feature.properties.audio.pause();
+		// Catchall cases
+		generalRegions.features.forEach(function(feature){
+			// If a masking region hasn't been encountered and then is, set the flag and dispatch the handler. Otherwise (flag up or not in region) mute
+			if(!playedSomething && turf.booleanPointInPolygon(myLocationTurf, feature)){
+				console.log('Detected general audio zone ' + feature.properties.region + ".");
+				playedSomething = startPlaying(feature.properties.region) || playedSomething;
+			} else {
+				stopPlaying(feature.properties.region);
 			}
-		}
-	});
-
-	// Catchall case 
-	generalRegions.features.forEach(function(feature, i, array){
-	let audioOptions = audioLocations[feature.properties.region];
-
-	// If currently in this feature
-	if(playing && !playedSomething && turf.booleanPointInPolygon(myLocationTurf, feature)){
-			console.log('Detected audio zone ' + feature.properties.region + ": ");
-
-			if((night || nightOverride) && audioOptions.night != "" && audioOptions.night != undefined && !feature.properties.playing){
-				feature.properties.audio = new Audio(audioOptions.night);
-				feature.properties.audio.play();
-				feature.properties.playing = true;
-				playedSomething = true;
-			} else if(audioOptions.day != "" && audioOptions.day != undefined && !feature.properties.playing){
-				feature.properties.audio = new Audio(audioOptions.day);
-				feature.properties.audio.play();
-				feature.properties.playing = true;
-				playedSomething = true;
-			}
-
-		} else {
-			if(feature.properties.audio != undefined){
-				feature.properties.audio.pause();
-				feature.properties.playing = false;
-			}
-		}
-	});
+		});
+	}
 }
 
 // Location query failure
 function locationUnavailable() {
-	if(lastLocation == undefined){
-		locationAvailable = false;
-		console.log('Sorry, no position available.');
+	if(lastLocation == null){
+		console.log('No position available.');
 	} else {
 		console.log('Failed to get new location, reusing old.');
 	}
 }
 
-// Toggle Playable helper
-function togglePlayable(){
-	// Only do something if can
-	if(locationAvailable) {
-		playing = !playing;
-		console.log('Toggled Playable.');
-		let overlayClasses = document.getElementById('overlay').classList;
+// On click of the play/pause button
+$id("toggle").onclick = function(){
+	// Only do something if have location
+	if(lastLocation !== null) {
+		// If turning on or off interaction
+		if(paused){
+			// Turning on
+			console.log("Starting app running.");
+			paused = false;
 
-		// Playing
-		if(playing){
-			overlayClasses.remove("off");
-			overlayClasses.add("on");
+			// Update overlay and button
+			$id("overlay").classList.add("off");
+			$id("toggle").innerHTML = "⏸";
 
-			// Update toggle text
-			document.getElementById('toggle').innerHTML = '⏸';
+			// Jumpstart audio playing by calling the event listener
+			locationFound(lastLocation);
+		} else {
+			// Turning off
+			console.log("Stopping all audio and stopping app.");
+			paused = true;
 
-			// Start audio
-			if(location != null){
+			// Update overlay and button
+			$id("overlay").classList.remove("off");
+			$id("toggle").innerHTML = "▶";
+
+
+			// Pause all audio
+			audioPlaying.forEach(stopPlaying);
+		}
+	} else { // Last location null
+		console.log("Location unavailable.");
+	}
+}
+
+//////////////////////////////// NIGHTTIME RELATED STUFF ////////////////////////////////
+// Check if a time falls into night hours
+function nightPredicate(date){
+	let hour = mod((date.getUTCHours() - date.getTimezoneOffset()/60), 24);
+	return hour < 7 || hour > 21;
+}
+
+// Update the night predicate every 10 seconds (only if not overridden,otherwise will always be overridden)
+if(!nightOverride){
+	window.setInterval(function() {
+		// Get the new night variable and compare it
+		if(isNight !== nightPredicate(new Date())){
+			// Switched night states, update state
+			isNight = !isNight;
+			console.log("Night was toggled to " + isNight);
+			
+			// Update the map
+			mapLayer.setUrl(mapUrl(isNight));
+
+			// Jumpstart audio playing (if have location)
+			if(lastLocation !== null){
+				// Call the event listener
 				locationFound(lastLocation);
 			}
-		} else { // Pausing
-			overlayClasses.remove("on");
-			overlayClasses.add("off");
-
-			// Update toggle text
-			document.getElementById('toggle').innerHTML = '▶';
-
-			// Pause all audios
-			buildingRegions.features.forEach(function(feature, i, array){
-					feature.properties.audio.pause();
-					feature.properties.playing = false;
-			});
-			generalRegions.features.forEach(function(feature, i, array){
-					feature.properties.audio.pause();
-					feature.properties.playing = false;
-			});
 		}
-	} else { // Location not available
-		console.log("location unavailable.");
+	}, 10000);
+}
+
+//////////////////////////////// AUDIO RELATED STUFF ////////////////////////////////
+// Set of regions playing audio
+let audioPlaying = new Set();
+
+// Start playing a given region (may already be playing, don't want to duplicate in that case)
+function startPlaying(region){
+	// Check the audio isn't playing already
+	if(!audioPlaying.has(region)){
+		console.log("starting playing " + region);
+		audioPlaying.add(region);
+
+		// Get the audio object
+		let toPlay;
+		if(isNight){
+			toPlay = audioObjects[region].night;
+		} else {
+			toPlay = audioObjects[region].day;
+		}
+
+		// Make sure there is audio
+		if(toPlay !== undefined){
+			// Start it and make sure it loops
+			toPlay.play();
+			toPlay.loop = true;
+		} else {
+			// If there's no audio to play
+			audioPlaying.delete(region);
+			return false;
+		}
 	}
+
+	// Audio is already playing or successfully started it
+	return true;
+}
+
+// Stop playing a given region
+function stopPlaying(region){
+	// Check the audio is playing already
+	if(audioPlaying.has(region)){
+		console.log("stopping playing " + region);
+		audioPlaying.delete(region);
+
+		// Get the audio object
+		let toPlay;
+		if(isNight){
+			toPlay = audioObjects[region].night;
+		} else {
+			toPlay = audioObjects[region].day;
+		}
+
+		// Stop the audio object
+		toPlay.pause();
+	}
+}
+
+
+//////////////////////////////// HELPER RELATED STUFF ////////////////////////////////
+// JankQuery 
+function $id(id) {
+	return document.getElementById(id);
+}
+
+// Positive only mod
+function mod(n, m) {
+  return ((n % m) + m) % m;
 }
