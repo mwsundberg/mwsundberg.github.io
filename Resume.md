@@ -13,6 +13,7 @@
 ## Education
 ### **University of Rochester** (Fall 2017-)
 Pursuing a Bachelors of Science in Computer Science
+
 Minoring in Digital Media Studies and Linguistics
 
 ### **Crescent Valley High School** (2013-2017)
