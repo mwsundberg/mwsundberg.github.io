@@ -7,14 +7,16 @@
 **Github:** [mwsundberg](http://github.com/mwsundberg/)
 |
 **Gitlab:** [mws](https://gitlab.com/mws)
+|
+**Dribbble:** [mws](https://dribbble.com/mws)
 
 ## Education
-### **Crescent Valley High School** (2013-2017)
-Graduated having taken seven honors courses and four AP courses, including Calculus BC.
-
 ### **University of Rochester** (Fall 2017-)
 Pursuing a Bachelors of Science in Computer Science
 Minoring in Digital Media Studies and Linguistics
+
+### **Crescent Valley High School** (2013-2017)
+Graduated having taken seven honors courses and four AP courses, including Calculus BC.
 
 ## Work and Leadership Experience
 ### **Event and Classroom Management Technical Assistant** (Fall 2017-)
@@ -40,6 +42,10 @@ Apprenticeships in Science and Engineering internship at OSU Robotics & Human Co
 * Resulted in the publication of a [research paper](https://mws.is/2016ICRApaper.pdf) in the [International Conference on Robotics and Automation](https://www.icra2016.org). At the conference the paper was a [finalist for the Best Manipulation Paper Award](https://www.icra2016.org/conference/awards/).
 
 ## Web Projects
+### **Hackathon Project:** [Map Music](https://mws.is/map-music) (Fall 2019)
+[Github page](https://github.com/mwsundberg/map-music)
+I made this project in collaboration with Nathan Reed. We wondered about what terrain sounded like, so we made an audio synthesizer that uses elevation data to make music. These sounds are then customizable, and composable, and exportable.
+
 ### **Pipeline Testing:** [Link Shortener](https://l.mws.is/) (Summer 2017)
 [Gitlab page](https://gitlab.com/mws/L).
 A link shortener that makes redirect pages with custom or automatically assigned text from links stored in a JSON file. Built using Node.js. Visit the site for a more thorough description.
