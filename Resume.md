@@ -13,7 +13,8 @@
 Graduated having taken seven honors courses and four AP courses, including Calculus BC.
 
 ### **University of Rochester** (Fall 2017-)
-Majoring in Computer Science.
+Pursuing a Bachelors of Science in Computer Science
+Minoring in Digital Media Studies and Linguistics
 
 ## Work and Leadership Experience
 ### **Event and Classroom Management Technical Assistant** (Fall 2017-)
