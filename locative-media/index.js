@@ -43,9 +43,7 @@ let mapLayer = L.tileLayer(mapUrl(isNight), {
 mapLayer.addTo(mymap);
 
 // Add regions to map, making them non-clickable
-let testing = L.geoJson(buildingRegions);
-testing.addTo(mymap);
-testing.setStyle({style:{interactive:false}});
+L.geoJson(buildingRegions, {style:{interactive:false}}).addTo(mymap);
 L.geoJson(generalRegions, {style:{interactive:false}}).addTo(mymap);
 
 myLocationMarker.addTo(mymap);
@@ -81,11 +79,13 @@ if(mouseLocationOverride){
 		lastLocation.coords.longitude += 0.001 * (Math.random() - 0.5);
 		
 		// Recall the locations function
-		locationFound(lastLocation);
+		if(!paused){
+			locationFound(lastLocation);
+		}
 	}, 2000);
 } else {
 	// If not using mouse click location override
-	if ('geolocation' in navigator) {
+	if('geolocation' in navigator){
 		// Geolocation API dealings
 		navigator.geolocation.watchPosition(locationFound, locationUnavailable, locationApiSettings);
 	} else {
@@ -105,9 +105,7 @@ function locationFound(position) {
 	myLocationMarker.setLatLng(L.latLng(latitude, longitude));
 
 	// Only do audio if enabled to do so
-	if(paused){
-		return;
-	} else {
+	if(!paused){
 		// Check each region for location intersection
 		let playedSomething = false;
 		buildingRegions.features.forEach(function(feature){
@@ -226,8 +224,9 @@ function startPlaying(region){
 		// Make sure there is audio
 		if(toPlay !== undefined){
 			// Start it and make sure it loops
-			toPlay.play();
 			toPlay.loop = true;
+			toPlay.play();
+			console.log(toPlay);
 		} else {
 			// If there's no audio to play
 			audioPlaying.delete(region);
