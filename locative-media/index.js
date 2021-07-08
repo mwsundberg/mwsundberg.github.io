@@ -14,7 +14,7 @@ const locationApiSettings = {
 
 // Map Settings
 function mapUrl(isNight){
-	return 'https://api.tiles.mapbox.com/v4/' + (isNight? 'mapbox.dark':'mapbox.light') + '/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+	return 'https://api.mapbox.com/styles/v1/mapbox/' + (isNight? 'dark-v10':'light-v10') + '/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXdzdW5kYmVyZyIsImEiOiJjanV2YzFrOTkwMDRkNGRtcDkxeGNmcDV0In0.hgudB436hrrR8-JSuxfg8w';
 }
 const center = [43.12861, -77.630081];
 const myLocationMarkerOptions = {
@@ -34,8 +34,10 @@ let myLocationMarker = L.circleMarker(L.latLng(center), myLocationMarkerOptions)
 
 // Mapbox map layer layer
 let mapLayer = L.tileLayer(mapUrl(isNight), {
+	tileSize: 512,
 	maxZoom: 18,
 	minZoom: 14,
+	zoomOffset: -1,
 	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
 		'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
 		'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'
