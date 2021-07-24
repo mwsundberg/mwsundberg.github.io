@@ -1,3 +1,0 @@
-# A Work in Progress by Matthew Sundberg
-
-Still working on this...
