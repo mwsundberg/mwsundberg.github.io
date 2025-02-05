@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>new link](https://zen-browser.app/) [original one</title>
+</head>
+<body>
+	<h1>Copy the URL as markdown to see the issue</h1>
+	<p>For context this is related to <a href="https://zen-browser.app/">Zen Browser</a> <a href="https://github.com/zen-browser/desktop/pull/4801">adding a feature</a> for copying the current URL as a markdown link with <code>Ctrl+Alt+Shift+C</code>.</p>
+	<script type="text/javascript">
+		// Sorryyyyy ;)
+		document.addEventListener('keydown', (e)=>{
+			if(e.ctrlKey && e.shiftKey && e.altKey) {
+				document.title = "original link](https://www.youtube.com/watch?v=dQw4w9WgXcQ) [new one";
+			}
+		});
+		document.addEventListener('keyup', (e)=>{
+			if(e.ctrlKey || e.shiftKey || e.altKey) {
+				document.title = "new link](https://zen-browser.app/) [original one";
+			}
+		})
+	</script>
+</body>
+</html>
