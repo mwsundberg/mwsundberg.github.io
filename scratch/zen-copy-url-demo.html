@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>new link](https://zen-browser.app/) [original one</title>
+	<title>this feature can lead to undesired behavior when dealing with weird titles](https://zen-browser.app/) [here's the original link</title>
 	<style type="text/css">
 		html {
 			width: 100vw;
@@ -30,15 +30,15 @@
 	<p>For context this is related to <a href="https://zen-browser.app/">Zen Browser</a> <a href="https://github.com/zen-browser/desktop/pull/4801">adding a feature</a> for copying the current URL as a markdown link with <code>Ctrl+Alt+Shift+C</code>.</p>
 	<script type="text/javascript">
 		// Sorryyyyy ;)
-		// This is actually just to show that the issue can be abused, instead of "original one" for the second link you could just have whitespace
+		// This is actually just to show that the issue can be abused, instead of "here's a new link" for the second link's text you could just have whitespace
 		document.addEventListener('keydown', (e)=>{
 			if(e.ctrlKey && e.shiftKey && e.altKey) {
-				document.title = "original link](https://www.youtube.com/watch?v=dQw4w9WgXcQ) [new one";
+				document.title = "this feature can lead to undesired behavior when dealing with weird titles](https://www.youtube.com/watch?v=dQw4w9WgXcQ) [here's a new link";
 			}
 		});
 		document.addEventListener('keyup', (e)=>{
 			if(e.ctrlKey || e.shiftKey || e.altKey) {
-				document.title = "new link](https://zen-browser.app/) [original one";
+				document.title = "this feature can lead to undesired behavior when dealing with weird titles](https://zen-browser.app/) [here's the original link";
 			}
 		})
 	</script>
