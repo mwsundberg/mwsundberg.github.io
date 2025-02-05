@@ -1,3 +1,2 @@
-# Hello
-
-Pretty soon there's going to be a personal portfolio site here! I'm (slowly) putting it together with react and more!
+# Hi
+No site here yet, sorry. Find me on github [@mwsundberg](https://github.com/mwsundberg)
