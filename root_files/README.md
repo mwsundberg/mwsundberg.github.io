@@ -1,0 +1,1 @@
+This directory is for storing files/scratch work that has historically been accessible at the root level. In an effort to keep URLs stable, all files here will be re-exposed at `CNAME/<whatever>` in the future.
